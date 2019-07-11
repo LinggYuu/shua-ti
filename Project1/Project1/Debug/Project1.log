@@ -1,0 +1,4 @@
+﻿  2.cpp
+d:\github\shua-ti\project1\project1\2.cpp(9): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\github\shua-ti\project1\project1\2.cpp(10): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+  Project1.vcxproj -> D:\github\shua-ti\Project1\Debug\Project1.exe
