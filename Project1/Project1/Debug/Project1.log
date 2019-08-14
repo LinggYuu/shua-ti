@@ -1,2 +1,4 @@
-﻿  23.cpp
+﻿  24.cpp
+d:\github\shua-ti\project1\project1\24.cpp(7): warning C4101: “M”: 未引用的局部变量
+d:\github\shua-ti\project1\project1\24.cpp(9): warning C4101: “j”: 未引用的局部变量
   Project1.vcxproj -> D:\github\shua-ti\Project1\Debug\Project1.exe
