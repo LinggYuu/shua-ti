@@ -48,3 +48,32 @@ int main()
     system("pause");
     return 0;
 }
+
+//      void queen(int row)
+
+//     {
+
+//               if (n == row)      //如果已经找到结果，则打印结果
+
+//                     print_result();
+
+//               else {
+
+//                           for (k=0 to N) { //试探第row行每一个列
+
+//                                   if (can_place(row, k) { 
+
+//                                           place(row, k);   //放置皇后
+
+//                                          queen(row + 1);  //继续探测下一行
+
+//                                   }
+
+//                          }
+
+//              }
+
+//     }
+// ————————————————
+// 版权声明：本文为CSDN博主「hackbuteer1」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+// 原文链接：https://blog.csdn.net/Hackbuteer1/article/details/6657109
