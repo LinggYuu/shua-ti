@@ -30,3 +30,27 @@ int main()
         cout<<a[i]<<endl;
     system("pause");
 }
+
+
+void ms(int q[],int l,int r)
+{
+    if(l>=r)
+        return;
+    int mid=l+r>>1;
+    ms(q,l,mid);
+    ms(q,mid+1,r);
+    int i=l,j=mid+1,k=0;
+    while(i<mid&&j<r)
+    {
+        if(q[i]<q[j])
+            tmp[k++]=q[i++];
+        else
+            tmp[k++]=q[j++];
+    }
+    while(i<mid)
+        tmp[k++]=q[i++];
+    while(j<r)
+        tmp[k++]=q[j++];
+    for(i=l,j=0;i<=r;i++)
+        q[i]=tmp[j++];
+}
