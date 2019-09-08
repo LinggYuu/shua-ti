@@ -13,29 +13,23 @@ int main()
     cin>>n>>m>>mx>>my;
     n++;m++;mx++;my++;
     for(int i=0;i<=8;i++)
-       { dp[mx+dx[i]][my+dy[i]]=-1;
+       {    if(mx+dx[i]>=0&&my+dy[i]>=0)
+           dp[mx+dx[i]][my+dy[i]]=-1;
         cout<<mx+dx[i]<<","<<my+dy[i]<<endl;
        }
     // dp[0][1]=1;
-    // dp[1][0]=1;
-
-    dp[0][1]=1;
+    dp[1][0]=1;
     for(int i=1;i<=n;i++)
         for(int j=1;j<=m;j++)
         {   
-            a[i][j]=dp[i][j-1];
+            // a[i][j]=dp[i][j-1];
             if(dp[i][j]==-1)
                 {dp[i][j]=0;
                     continue;
                     }
             else
             {
-                if(i==1&&j>1)
-                    dp[i][j]=dp[i][j-1];
-                else if(i>1&&j==1)
-                    dp[i][j]=dp[i-1][j];
-                else 
-                    dp[i][j]=dp[i][j-1]+dp[i-1][j];
+                dp[i][j]=dp[i][j-1]+dp[i-1][j];
             }
         }
         //     for(int i=1;i<=n;i++)
@@ -48,3 +42,9 @@ int main()
 
 
 }
+// 要考虑一下边界的问题 边界上如果有0 从该点向后都是不能取的
+
+// for(int i=1;i<=m;i++)if(num[0][i-1]==0) num[0][i]=0;
+
+// for(int i=1;i<=n;i++)if(num[i-1][0]==0) num[i][0]=0;
+// 注意考虑边界条件，如果有马或马控点在（0，y）或（x，0）上，则之后的点（0，n）（n>=y）及(0,m)(m>=x) 可行方案数都为0！
