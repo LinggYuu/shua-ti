@@ -1,19 +1,17 @@
 //p1019
 #include<iostream>
 #include<string>
-#include<algorithm>
 using namespace std;
 string word[20];
 int f[20];
-string s,d;
-string e;    
-int t,flag,tt;
-string c;
+string s;
+string e,d;
 int num,i,j,k;
 
-int klj(string a,string b)
+string lj(string a,string b)
 {
-
+    int t,flag;
+    string c;
     for(int i=a.size()-1;i>=0;i--)
         if(a[i]==b[0])
         {
@@ -32,38 +30,44 @@ int klj(string a,string b)
     if(flag==1)
     {   
         if(a.substr(0,t)+b!=a&&a.substr(0,t)+b!=b||a.size()==1)
-            return flag;
+            return c=a.substr(0,t)+b;
         else
         {
-            return 0;
+            return "0";
         }
         
     }
     else
-        return 0;
+        return "0";
     
 }
 
-void dfs(string c)
-{   
+void dfs(int n,string c)
+{
+    if(n==7)
+    {
+        cout<<c.size()<<endl;
+        return;
+    }
     for(i=0;i<num;i++)
-    {   
-        if(f[i]>=2||klj(c,word[i])==0||d==e)
-            continue;
-        if(i==5)
-            break;
-        d=c;
-        cout<<"this d is "<<d<<endl;
-        d=c.substr(0,t)+word[i];
-        cout<<"this d+c is "<<d<<endl;
-        f[i]++;
-        dfs(d);
-        f[--i]--;
-        i=0;
-        e=c;
-        cout<<"e is"<<e<<endl;
-        d=c;
-        cout<<"this hsd is "<<d<<endl;   
+    {
+        if((lj(c,word[i])!="0")&&f[i]<2&&(lj(c,word[i])!=e))
+        {   
+            int t,g;
+            d=c;        
+            cout<<d<<" is d"<<endl;
+            c=lj(c,word[i]);
+            e=c;
+            f[i]++;
+            t=i;
+            cout<<c<<" is c"<<endl;
+            dfs(n+1,c);   
+            c=d;
+            cout<<c<<" huisuhouis c"<<endl;
+            f[t]--;
+            i=0; 
+            
+        }
     }
     
     
@@ -78,7 +82,7 @@ int main()
         cin>>word[i];
     }
     cin>>s;
-    dfs(s);
+    dfs(0,s);
 
     system("pause");
     return 0;
