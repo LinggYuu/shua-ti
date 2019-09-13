@@ -1,3 +1,4 @@
+// p1162
 #include<iostream>
 #include<queue>
 #include<algorithm>
@@ -78,24 +79,6 @@ int main()
             if(j==n-1)
                 cout<<endl;}
 
-
-
-
-
-
-
-
-    //     for(int i=0;i<n;i++)
-    // {
-    //     for(int j=0;j<n;j++)
-    //     {
-    //         cout<<a[i][j]<<" ";
-    //         if(j==n-1)
-    //         {
-    //             cout<<endl;
-    //         }        
-    //     }
-    // }
 
     system("pause");
     return 0;
