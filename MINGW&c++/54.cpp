@@ -52,13 +52,7 @@ void dfs(ch chi,int p)
         x-=dis(chi,che[i]);
     }
 
-
 }
-
-
-
-
-
 
 
 int main()
@@ -72,12 +66,7 @@ int main()
     }
     dfs(che[0],1);
     printf("%.2f",mi);
-        //     for(int i=0;i<=n;i++)
-    // {
-    //     cout<<che[i].x<<che[i].y<<endl;
-    // }
-    // cout<<dis(che[1],che[2])<<endl;
-
+    
     system("pause");
     return 0;
 }
