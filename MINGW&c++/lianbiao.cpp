@@ -15,6 +15,7 @@ using namespace std;
 
 const int N=10010;
 int head,e[N],ne[N],idx;
+//head 指向第一个元素，值是位置
 void init()//初始化
 {
     head=-1;

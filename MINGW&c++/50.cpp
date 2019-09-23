@@ -1,12 +1,11 @@
 // p1048
 #include<iostream>
+#include<algorithm>
 using namespace std;
 
 int t[101];
 int w[101];
 int dp[101][1010];
-
-
 
 int main()
 {
@@ -27,12 +26,6 @@ int main()
         }
 
     cout<<dp[M][T];
-
-
-
-
-
-
 
 
     system("pause");
