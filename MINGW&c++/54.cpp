@@ -1,6 +1,6 @@
 // p1433
 #include<iostream>
-#include<math.h>
+#include<cmath>
 #include<algorithm>
 #include <iomanip>
 using namespace std;
