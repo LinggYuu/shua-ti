@@ -11,7 +11,6 @@ int map[N][N];
 int st[N][N];
 int ans[N][N];
 int maxnum;
-
 int dfs(int x,int y)
 {
     if(st[x][y]!=0)
