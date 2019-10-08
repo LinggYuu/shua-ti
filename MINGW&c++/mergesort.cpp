@@ -40,7 +40,7 @@ void ms(int q[],int l,int r)
     ms(q,l,mid);
     ms(q,mid+1,r);
     int i=l,j=mid+1,k=0;
-    while(i<mid&&j<r)
+    while(i<=mid&&j<=r)
     {
         if(q[i]<q[j])
             tmp[k++]=q[i++];
