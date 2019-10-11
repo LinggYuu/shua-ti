@@ -99,13 +99,15 @@ using namespace std;
 const int N=1010;
 
 int n;
-int a[N],f[N];
+int a[N],f[N];//所有以第i个数结尾的上升子序列集合，
+              //值为该集合中所有上升子序列的长度的最大值
 int main()
 {
     cin>>n;
     for(int i=1;i<=n;i++)
     {    
-        f[i]=1;
+        f[i]=1;//表示以i结尾的上升子序列长度为1，只有i一个数
+
         for(int j=1;j<i;j++)
             if(a[j]<a[i])
                 f[i]=max(f[i],f[j]+1);
@@ -113,3 +115,6 @@ int main()
     }
 
 }
+
+//最长公共子序列
+

@@ -1,29 +1,30 @@
-//二分 
+//二分  本质并不是单调性
 bool check(int x) {/* ... */} // 检查x是否满足某种性质
 
 // 区间[l, r]被划分成[l, mid]和[mid + 1, r]时使用：
-int bsearch_1(int l, int r)
+int bsearch_1(int l, int r)//左红右绿,找靠右（满足绿最左）的点
 {
     while (l < r)
     {
         int mid = l + r >> 1;
         if (check(mid)) r = mid;    // check()判断mid是否满足性质
-        else l = mid + 1;
-    }
+        else l = mid + 1;           
+        //无解返回从左往右第一个满足check的数的位置，x不存在的话一定大于x
+    }  
     return l;
 }
 // 区间[l, r]被划分成[l, mid - 1]和[mid, r]时使用：
-int bsearch_2(int l, int r)
+int bsearch_2(int l, int r)//左红右绿,找靠左（满足红最右）的点
 {
     while (l < r)
     {
-        int mid = l + r + 1 >> 1;
+        int mid = l + r + 1 >> 1;//不加1若遇到l=r-1则死循环
         if (check(mid)) l = mid;
         else r = mid - 1;
     }
     return l;
 }
-
+//二分是一定有解的，无解与模板有关 
 
 
 bool check(double x) {/* ... */} // 检查x是否满足某种性质

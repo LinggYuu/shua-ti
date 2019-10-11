@@ -55,3 +55,13 @@ a+b<b+a
 
 getline(cin,str,'.')//以.结束,不包含.
 to_string
+
+
+输入一行数
+while(~scanf("%d",&a[++n]));
+while(scanf("%d",&m[n++])==1)
+scanf()函数会返回成功读入的数据个数
+
+Dilworth定理：偏序集的最少反链划分数等于最长链的长度
+Dilworth定理，偏序集能划分成的最少的全序集个数等于最大反链的元素个数。
+wdnmd什么龟定理
