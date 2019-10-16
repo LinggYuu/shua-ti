@@ -117,72 +117,75 @@
 // }
 
 // 最长上升子序列II
-#include<iostream>
-#include<algorithm>
-using namespace std;
+// #include<iostream>
+// #include<algorithm>
+// using namespace std;
 
-const int N=100010;
+// const int N=100010;
 
-int n;
-int a[N];//存每个数
-int q[N];//不同长度的上升子序列结尾数的最小值
-
-
-int main()
-{
-    cin>>n;
-    for(int i=0;i<n;i++)
-    {
-       cin>>a[i];
-    }
-    int len=0;//当前最大长度，q中元素个数
-    q[0]=-2e9;//小于所有数
-    for(int i=0;i<n;i++)
-    {
-        int l=0,r=len;
-        while(l<r)//求的数是q[]的[]中的东西
-        {
-            int mid=(l+r+1)/2;
-            if(q[mid]<a[i])
-            //要找的是小于ai的最大值，所以在mid右边
-                l=mid;
-            else
-                r=mid-1;
-        }
-//得到的数l；r， 是小于ai的最大值，是q长度为len的结尾最小值
-// 可以接在哪个长度的后面
-        len=max(len,r+1);
-        //存当前序列长度从1到最长len的情况
-        //len=4则有1234种长度的序列
-        q[r+1]=a[i];
-    }
-    cout<<len; 
-    system("pause");
-    return 0;
-}
+// int n;
+// int a[N];//存每个数
+// int q[N];//不同长度的上升子序列结尾数的最小值
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// int main()
+// {
+//     cin>>n;
+//     for(int i=0;i<n;i++)
+//     {
+//        cin>>a[i];
+//     }
+//     int len=0;//当前最大长度，q中元素个数
+//     q[0]=-2e9;//小于所有数
+//     for(int i=0;i<n;i++)
+//     {
+//         int l=0,r=len;
+//         while(l<r)//求的数是q[]的[]中的东西
+//         {
+//             int mid=(l+r+1)/2;
+//             if(q[mid]<a[i])
+//             //要找的是小于ai的最大值，所以在mid右边
+//                 l=mid;
+//             else
+//                 r=mid-1;
+//         }
+// //得到的数l；r， 是小于ai的最大值，是q长度为len的结尾最小值
+// // 可以接在哪个长度的后面
+//         len=max(len,r+1);
+//         //存当前序列长度从1到最长len的情况
+//         //len=4则有1234种长度的序列
+//         q[r+1]=a[i];
+//     }
+//     cout<<len; 
+//     system("pause");
+//     return 0;
+// }
 
 
 
 //最长公共子序列
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+const int N=1010;
+int n,m;
+char a[N],b[N];
+int f[N][N];
 
+int main()
+{
+    cin>>n>>m;
+    scanf("%s%s",&a+1,&b+1);
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
+        {
+            f[i][j]=max(f[i-1][j],f[i][j-1]);
+            if(a[i]==b[j])//第三种情况未必存在
+                f[i][j]=max(f[i][j],f[i-1][j-1]+1);
+        }
+    }
+    cout<<f[n][m];
+
+}
