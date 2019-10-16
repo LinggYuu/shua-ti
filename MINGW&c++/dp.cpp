@@ -189,3 +189,47 @@ int main()
     cout<<f[n][m];
 
 }
+
+
+//石子合并
+// p1880
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+const int N=105;
+int n;
+int s[N];
+int f[N][N];
+
+//j-i+1为i到j的长度(含i,j)
+int main()
+{
+    scanf("%d",&n);
+    for(int i=1;i<=n;i++)
+        scanf("%d",s[i]);
+
+    for(int i=1;i<=n;i++)
+    {
+       s[i]+=s[i-1];
+    }//前缀和
+
+    for(int len=2;len<=n;len++)
+    //区间长度，从为2的开始
+    {//在该区间长度下，枚举 每段为该区间长度的区间
+        for(int i=1;i+len-1<=n;i++)
+        {
+            int l=i,r=i+len-1;
+            f[l][r]=1e8;
+            for(int k=l;k<r;k++)
+            {
+                f[l][r]=min(f[l][r],f[l][k]+f[k+1][r]+s[r]-s[l-1]);
+
+            }
+        }
+    }
+    system("pause");
+    return 0;
+
+}
