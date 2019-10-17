@@ -1,3 +1,4 @@
+//第一时刻，解啥设啥
 // //背包问题
 // //01背包
 // // #include<iostream>
@@ -152,84 +153,90 @@
 // //得到的数l；r， 是小于ai的最大值，是q长度为len的结尾最小值
 // // 可以接在哪个长度的后面
 //         len=max(len,r+1);
-//         //存当前序列长度从1到最长len的情况
-//         //len=4则有1234种长度的序列
-//         q[r+1]=a[i];
+// //         //存当前序列长度从1到最长len的情况
+// //         //len=4则有1234种长度的序列
+// //         q[r+1]=a[i];
+// //     }
+// //     cout<<len; 
+// //     system("pause");
+// //     return 0;
+// // }
+
+
+
+// //最长公共子序列
+// #include<iostream>
+// #include<string>
+// #include<algorithm>
+// using namespace std;
+// const int N=1010;
+// int n,m;
+// char a[N],b[N];
+// int f[N][N];
+
+// int main()
+// {
+//     cin>>n>>m;
+//     scanf("%s%s",&a+1,&b+1);
+//     for(int i=1;i<=n;i++)
+//     {
+//         for(int j=1;j<=m;j++)
+//         {
+//             f[i][j]=max(f[i-1][j],f[i][j-1]);
+//             if(a[i]==b[j])//第三种情况未必存在
+//                 f[i][j]=max(f[i][j],f[i-1][j-1]+1);
+//         }
 //     }
-//     cout<<len; 
+//     cout<<f[n][m];
+
+// }
+
+
+// //石子合并
+// // p1880
+// #include<iostream>
+// #include<algorithm>
+
+// using namespace std;
+
+// const int N=105;
+// int n;
+// int s[N];
+// int f[N][N];
+
+// //j-i+1为i到j的长度(含i,j)
+// int main()
+// {
+//     scanf("%d",&n);
+//     for(int i=1;i<=n;i++)
+//         scanf("%d",s[i]);
+
+//     for(int i=1;i<=n;i++)
+//     {
+//        s[i]+=s[i-1];
+//     }//前缀和
+
+//     for(int len=2;len<=n;len++)
+//     //区间长度，从为2的开始
+//     {//在该区间长度下，枚举 每段为该区间长度的区间
+//         for(int i=1;i+len-1<=n;i++)
+//         {
+//             int l=i,r=i+len-1;
+//             f[l][r]=1e8;
+//             for(int k=l;k<r;k++)
+//             {
+//                 f[l][r]=min(f[l][r],f[l][k]+f[k+1][r]+s[r]-s[l-1]);
+
+//             }
+//         }
+//     }
 //     system("pause");
 //     return 0;
+
 // }
 
 
 
-//最长公共子序列
-#include<iostream>
-#include<string>
-#include<algorithm>
-using namespace std;
-const int N=1010;
-int n,m;
-char a[N],b[N];
-int f[N][N];
-
-int main()
-{
-    cin>>n>>m;
-    scanf("%s%s",&a+1,&b+1);
-    for(int i=1;i<=n;i++)
-    {
-        for(int j=1;j<=m;j++)
-        {
-            f[i][j]=max(f[i-1][j],f[i][j-1]);
-            if(a[i]==b[j])//第三种情况未必存在
-                f[i][j]=max(f[i][j],f[i-1][j-1]+1);
-        }
-    }
-    cout<<f[n][m];
-
-}
 
 
-//石子合并
-// p1880
-#include<iostream>
-#include<algorithm>
-
-using namespace std;
-
-const int N=105;
-int n;
-int s[N];
-int f[N][N];
-
-//j-i+1为i到j的长度(含i,j)
-int main()
-{
-    scanf("%d",&n);
-    for(int i=1;i<=n;i++)
-        scanf("%d",s[i]);
-
-    for(int i=1;i<=n;i++)
-    {
-       s[i]+=s[i-1];
-    }//前缀和
-
-    for(int len=2;len<=n;len++)
-    //区间长度，从为2的开始
-    {//在该区间长度下，枚举 每段为该区间长度的区间
-        for(int i=1;i+len-1<=n;i++)
-        {
-            int l=i,r=i+len-1;
-            f[l][r]=1e8;
-            for(int k=l;k<r;k++)
-            {
-                f[l][r]=min(f[l][r],f[l][k]+f[k+1][r]+s[r]-s[l-1]);
-
-            }
-        }
-    }
-    system("pause");
-    return 0;
-
-}
+// 状压dp
