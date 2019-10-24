@@ -1,34 +1,47 @@
-                存储图
-单链表:邻接表《
-                树
+//                 存储图
+// 单链表:邻接表《
+//                 树
 
-双链表:优化某些问题
-e[N],       ne[N]
-该点的值     该点的指向(next指针)
+// 双链表:优化某些问题
+// e[N],       ne[N]
+// 该点的值     该点的指向(next指针)
 
-head->o(3)0->o(5)1->o(7)2->o(9)3->空
-e[0]=3,ne[0]=1,e[1]=5,ne[1]=2,
-e[2]=7,ne[2]=3,e[3]=9,ne[3]=-1
+
+
+
+
+
+
+//单链表，只往前看
+// head->o(3)0->o(5)1->o(7)2->o(9)3->空
+// e[0]=3,ne[0]=1,e[1]=5,ne[1]=2,
+// e[2]=7,ne[2]=3,e[3]=9,ne[3]=-1
 
 #include<iostream>
 using namespace std;
 
 const int N=10010;
 int head,e[N],ne[N],idx;
-//head 指向第一个元素，值是位置
+//head表示头结点下标，e[i]表示结点i的值，
+//ne[i]表示结点i的next指针是多少，是个位置
 void init()//初始化
 {
     head=-1;
+    //head指向-1，可以理解为head的next指针为空
     idx=0; 
 }
-//x插到头结点
+
+//x插到头结点，用的极多*****
 void add_to_head(int x)
 {
     e[idx]=x;
     ne[idx]=head;
+    // 插入的结点的next指针指向head指向的指针
     head=idx;
+    //head指向插入的结点指针
     idx++;
 }
+
 //x插到下标为k的点后
 void add(int k,int x)
 {
@@ -37,6 +50,7 @@ void add(int k,int x)
     ne[k]=idx;
     idx++;
 }
+
 //删除下标是k的后面的点删掉
 void remove(int k)
 {
@@ -45,13 +59,13 @@ void remove(int k)
 
 
 
-`````
+// `````
 
 
 
 
 
-双链表
+// 双链表
 #include<iostream>
 using namespace std;
 const int N=100010;
@@ -88,13 +102,13 @@ void remove(int k)
 
 
 
-``````
+// ``````
 
 
 
-栈:先进后出
+// 栈:先进后出
 
-队列:先进先出
+// 队列:先进先出
 
 
 #include<iostream>
@@ -107,13 +121,13 @@ const int N=10010;
 int stk[N],tt=0;
 
 
-插入
+// 插入
 stk[++tt]=x；
 
-弹出 
+// 弹出 
 tt--;
 
-判断栈是否为空
+// 判断栈是否为空
 if(tt>0) not empty
 else empty
 
