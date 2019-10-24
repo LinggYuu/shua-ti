@@ -76,6 +76,7 @@ int e[N],l[N],r[N],idx;
 //初始化
 void init()
 {
+    //下标为0的为head，为1的为tail  
     //0head左端点，1tail右端点
     r[0]=1;
     l[1]=0;
@@ -87,7 +88,7 @@ void add(int k,int x)
     e[idx]=x;
     r[idx]=r[k];
     l[idx]=k;
-    l[r[k]]=idx;
+    l[r[k]]=idx;//必须先这一步
     r[k]=idx;
 }
 //k的左边插入，为在l[k]的右边插入
@@ -95,14 +96,15 @@ void add(int k,int x)
 //删除第k个点
 void remove(int k)
 {
-    r[l[k]]=r[k];
-    r[k]=l[k];
+     r[l[k]]=r[k];//左边的右边直接等于右边
+     l[r[k]]=l[k];//右边的左边直接等于左边
 }
 
 
 
+// ````````````````````````````
 
-// ``````
+
 
 
 
@@ -116,31 +118,40 @@ using namespace std;
 
 const int N=10010;
 
-
 //**********栈:
-int stk[N],tt=0;
-
+int stk[N];
+int tt=0;
+int x;
 
 // 插入
-stk[++tt]=x；
+stk[++tt]=x;
+// 这里从1开始插，tt下标存放x
 
-// 弹出 
+// 弹出,删除 
 tt--;
 
 // 判断栈是否为空
-if(tt>0) not empty
-else empty
+// 因为从1开始插所以只要>=1便说明有元素
+if(tt>0) 
+    not empty;
+else 
+    empty;
 
-栈顶
+// 栈顶
+// 取出栈顶,栈顶即最后放入在tt的元素
 stk[tt];
 
 
 
+
+
+
+
 //*********队列:
-int q[N],hh,tt=-1;//hh队头，tt队尾，0或-1看习惯
+int q[N],hh=0,tt=-1;//hh队头，tt队尾，0或-1看习惯
 //在队尾插入元素，在队头弹出元素    
-
-
+//这里队尾为-1插入的第一个位置为0
+// y总 栈习惯从0，队列从-1
 //插入
 q[++tt]=x;
 
@@ -154,10 +165,6 @@ else empty
 //取出队头元素
 q[hh]
 q[tt]
-
-
-
-
 
 
 //单调栈
@@ -174,17 +181,19 @@ int main()
         int x;
         cin>>x;
         while(tt&&stk[tt]>=x)
+        //一直删删到找到一个小于x的stk[tt]
+        //保证了单调递增
             tt--;
-        if(tt) 
+        if(tt) //不空说明找到了一个栈左边且小于x的值
             cout<<stk[tt]<<" ";
         else 
             cout<<-1<<" ";
-        stk[++tt]=x;
+        stk[++tt]=x;//插入栈中
     }
 
     return 0;
 }
-
+1：26
 //单调队列
 
 #include<iostream>
