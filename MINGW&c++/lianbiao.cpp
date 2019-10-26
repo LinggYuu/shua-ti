@@ -145,8 +145,6 @@ stk[tt];
 
 
 
-
-
 //*********队列:
 int q[N],hh=0,tt=-1;//hh队头，tt队尾，0或-1看习惯
 //在队尾插入元素，在队头弹出元素    
@@ -194,15 +192,20 @@ int main()
     return 0;
 }
 1：26
+
+
+
 //单调队列
+
+//滑动窗口最大值
 
 #include<iostream>
 using namespace std;
 
 const int N=10010;
-
+//队列维护窗口
 int a[N],q[N];
-
+int n,k;
 int main()
 {
     cin>>n>>k;
@@ -210,14 +213,14 @@ int main()
         cin>>a[i];
     int hh=0,tt=-1;
     for(int i=0;i<n;i++)
-    {
+    //判断队头是否划出窗口
+    {//i-k+1是[i-k+1,i]长度为k
         if(hh<=tt && i-k+1>q[hh])
-            h++;
+            hh++;
         while(hh<=tt && a[q[tt]]>=a[i])
             tt--;
         q[++tt]=i;
         if(i>=k-1)
             cout<<a[q[hh]]<<" ";
-
     }
 }
