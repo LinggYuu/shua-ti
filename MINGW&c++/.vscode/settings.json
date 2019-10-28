@@ -47,5 +47,6 @@
         "xstddef": "cpp",
         "xtr1common": "cpp",
         "xtree": "cpp"
-    }
+    },
+    "files.autoGuessEncoding": true
 }
