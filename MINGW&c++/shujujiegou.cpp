@@ -233,44 +233,105 @@
 // }
 
 
-// KMP 
-#include<iostream>
+// // KMP 
+// #include<iostream>
 
+// using namespace std;
+
+// const int N=10010,M=100010;
+
+// int n,m;
+// char p[N],s[M];
+// int ne[N];
+
+// int main()
+// {
+//     cin>>n>>p+1>>m>>s+1;//p,s下标从1开始输入
+//     //求ne
+//     //j是一个长度，也是一个下标
+//     for(int i=2,j=0;i<=n;i++)
+//     {
+//         while(j&p[i]!=p[j+1]) j=ne[j];
+//         if(p[i]==p[j+1]) j++;
+//         ne[i]= j;
+//     }
+
+//     //匹配
+//     //j是与s匹配的最后一个字母位置
+//     for(int i=1,j=0;i<=n;i++)
+//     {
+//         while(j&&s[i]!=p[j+1])
+//         //p与当前s [i]匹配的是j+1
+//             j=ne[j];
+//         if(s[i]==p[j+1])
+//             j++;
+//         if(j==m)
+//         {
+//             printf("%d",i-n);
+//             j=ne[j]; //匹配成功
+//         }
+//     }
+//     system("pause");
+//     return 0;
+// }
+
+
+//Trie树
+//高效地存储和查找字符串集合的数据结构
+
+
+#include<iostream>
 using namespace std;
 
-const int N=10010,M=100010;
+const int N=100010;
+//字符串总长度不超过10^5,所以最多有10^5个结点 
+int son[N][26],cnt[N],idx;
+char str[N];
+//idx 为下标 ，下标是0的点，既是根节点又是空节点
+// 因为只有小写字母所以每个结点最多向外连26条边
+//son存树中每个点的所有儿子
+//cnt存以当前这个点结尾的有多少个
 
-int n,m;
-char p[N],s[M];
-int ne[N];
+void insert(char str[])
+{
+    int p=0;
+    for(int i=0;str[i];i++)
+    {
+        int u=str[i]-'a';//小写字母a-z映射成0-25
+        if(!son[p][u])
+            son[p][u] = ++idx;
+        p=son[p][u];
+    }
+    cnt[p]++;
+}
+
+int query(char str[])
+{
+    int p=0;
+    for(int i=0;str[i];i++)
+    {
+        int u=str[i]-'a';
+        if(!son[p][u])
+            return 0;
+        p=son[p][u];
+    }
+    return cnt[p];
+}
 
 int main()
 {
-    cin>>n>>p+1>>m>>s+1;//p,s下标从1开始输入
-    //求ne
-    //j是一个长度，也是一个下标
-    for(int i=2,j=0;i<=n;i++)
+    int n;
+    cin>>n;
+    while(n--)
     {
-        while(j&p[i]!=p[j+1]) j=ne[j];
-        if(p[i]==p[j+1]) j++;
-        ne[i]= j;
+        char op[2];
+        scanf("%s%s",op,str);
+        if(op[0]=='I')
+            insert(str);
+        else
+            printf("%d\n",query(str)); 
     }
 
-    //匹配
-    //j是与s匹配的最后一个字母位置
-    for(int i=1,j=0;i<=n;i++)
-    {
-        while(j&&s[i]!=p[j+1])
-        //p与当前s [i]匹配的是j+1
-            j=ne[j];
-        if(s[i]==p[j+1])
-            j++;
-        if(j==m)
-        {
-            printf("%d",i-n);
-            j=ne[j]; //匹配成功
-        }
-    }
     system("pause");
     return 0;
 }
