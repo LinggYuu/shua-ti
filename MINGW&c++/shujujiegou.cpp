@@ -278,59 +278,248 @@
 
 //Trie树
 //高效地存储和查找字符串集合的数据结构
+//数组模拟的指针
 
+
+// idx:0;cr,1;cr,2
+
+// x
+// son[x][1]
+// son[son[x][1]]
+// son[][]中存的是该节点地址
+
+// #include<iostream>
+// using namespace std;
+
+// const int N=100010;
+// //字符串总长度不超过10^5,所以最多有10^5个结点 
+// int son[N][26],cnt[N],idx;
+// char str[N];
+// //idx 为下标 ，下标是0的点，既是根节点又是空节点
+// //意思是如果一个点没有子节点也会让他指向0
+// // 因为只有小写字母所以每个结点最多向外连26条边
+// //son存树中每个点的所有儿子
+// //cnt存以当前这个点结尾的有多少个
+// // son[][]中的值都是唯一的，可当作地址下一个的p
+// void insert(char str[])
+// {
+//     int p=0;
+//     //从根节点开始
+//     for(int i=0;str[i];i++)
+//     {
+//         int u=str[i]-'a';//小写字母a-z映射成0-25
+//         if(!son[p][u])
+//         //p节点不存在u这个儿子 
+//             son[p][u] = ++idx; 
+//         p=son[p][u];
+//     }
+//     cnt[p]++;
+// }
+
+// int query(char str[])
+// {
+//     int p=0;
+//     for(int i=0;str[i];i++)
+//     {
+//         int u=str[i]-'a';
+//         if(!son[p][u])
+//             return 0;
+//         p=son[p][u];
+//     }
+//     return cnt[p];
+// }
+
+// int main()
+// {
+//     int n;
+//     cin>>n;
+//     while(n--)
+//     {
+//         char op[2];
+//         scanf("%s%s",op,str);
+//         if(op[0]=='I')
+//             insert(str);
+//         else
+//             printf("%d\n",query(str)); 
+//     }
+
+//     system("pause");
+//     return 0;
+// }
+
+
+
+
+
+
+
+// //并查集
+// // 1.将两个集合合并
+// // 2.询问两个元素是否在一个集合当中
+
+// //基本原理:每个集合用一棵树来表示。树根的编号
+// //就是整个集合的编号。每个节点存储他的父节点，
+// //p[x]表示x的父节点
+
+// // q1:如何判断树根: if(p[x]==x)
+// // q2:如何求x的集合编号:while(p[x]!=x) x=p[x];
+// // q3:如何合并两个集合
+//     //px是x的集合编号，py是y的集合编号。p[x]=y
+
+// #include<iostream>
+
+// using namespace std;
+
+// const int N=100;
+// int n,m;
+// int p[N];//每个元素的父节点是谁，一个地址应该
+// int size[N];
+
+
+// //最重要
+// int find(int x)
+// //返回x所在集合的编号，即返回x的祖宗节点+路径压缩(优化)
+// {
+//     if(p[x]!=x)//x不是根节点
+//         p[x]=find(p[x]);
+//     return p[x];
+// }
+
+
+
+
+// int main()
+// {
+//     cin.tie();
+//     cin>>n>>m;
+//     for(int i=1;i<=n;i++)
+//     {
+//         p[i]=i;
+//     }
+
+//     while(m--)
+//     {
+//         char op[2];
+//         //scanf读字符串时会自动忽略空格回车
+//         //所以op[2]
+//         int a,b;
+//         scanf("%s%d%d",op,&a,&b);
+//         if(op[0]=='M')//合并
+//         {
+//             p[find(a)]=find(b);
+//             //b的祖宗节点成为a的祖宗节点的爷
+//         }
+//         else
+//         {
+//             if(find(a)==find(b))
+//                 puts("Yes");
+//             else
+//                 puts("No");   
+//         }
+
+//         //妙啊
+//     }
+
+//     system("pause");
+//     return 0;
+// }
+
+
+
+//堆(手写)
+// 一个完全二叉树
+//小根堆:每个点都小于等于左右儿子，根节点是最小值
+
+
+// 堆の存储
+// 下标从1开始不然左右儿子不好搞
+//用一维数组
+// 根节点是1号点
+// x的左儿子:2x
+// x的右儿子:2x+1
+
+
+//1.插入一个数
+//2.求集合当中的最小值
+//3.删除最小值
+// 1-3最基本操作
+//4.删除任意一个元素
+//5.修改任意一个元素
+
+//用下面两个操作可实现上面5个操作
+// down(x)//往下调整
+// up(x)//往上调整
+
+// 1.插入一个数 
+//size表示当前堆的大小(既是大小也是地址)，
+//heap表示堆
+//heap[++size]=x,在树的最后面插入x；
+//up(size);
+
+//2.求集合中的最小值
+//heap(1);
+
+//3.删除最小值
+//若要删除最后一个元素，只要size--
+//若要删最小值(若为小根堆就删)
+//heap[1]=heap[size];size--;down(1);
+
+//4.删除任意一个元素
+// heap[k]=heap[size];size--;down(k),up(k);
+//down和up只会执行一个
+
+//5.修改任意一个元素
+//heap[k]=x;down(k),up(k);
 
 #include<iostream>
+#include<algorithm>
 using namespace std;
 
 const int N=100010;
-//字符串总长度不超过10^5,所以最多有10^5个结点 
-int son[N][26],cnt[N],idx;
-char str[N];
-//idx 为下标 ，下标是0的点，既是根节点又是空节点
-// 因为只有小写字母所以每个结点最多向外连26条边
-//son存树中每个点的所有儿子
-//cnt存以当前这个点结尾的有多少个
 
-void insert(char str[])
+int n,m;
+int heap[N];
+int si;
+//size存当前heap中有多少个元素
+
+void down(int u)
 {
-    int p=0;
-    for(int i=0;str[i];i++)
+    int t=u; 
+    //用t来存爸爸和两儿子这一组中的最小的节点编号
+    if(u*2<=si&&heap[u*2]<heap[t])
+        t=u*2;
+    if(u*2+1<=si &&heap[u*2+1]<heap[t])
+        t=u*2+1;
+    if(u!=t)
     {
-        int u=str[i]-'a';//小写字母a-z映射成0-25
-        if(!son[p][u])
-            son[p][u] = ++idx;
-        p=son[p][u];
+        swap(heap[u],heap[t]);
+        down(t);
     }
-    cnt[p]++;
 }
-
-int query(char str[])
+void up(int u)
 {
-    int p=0;
-    for(int i=0;str[i];i++)
+    while(u/2&&heap[u/2]>heap[u])
     {
-        int u=str[i]-'a';
-        if(!son[p][u])
-            return 0;
-        p=son[p][u];
+        swap(heap[u/2],heap[u]);
+        u=u/2;
     }
-    return cnt[p];
 }
-
 int main()
 {
-    int n;
-    cin>>n;
-    while(n--)
+    scanf("%d",&n);
+    for(int i=1;i<=n;i++)
+        scanf("%d",&heap[i]);
+    si=n;
+    for(int i=n/2;i;i--)
+        down(i);
+    while(m--)
     {
-        char op[2];
-        scanf("%s%s",op,str);
-        if(op[0]=='I')
-            insert(str);
-        else
-            printf("%d\n",query(str)); 
+        printf("%d",heap[1]);
+        heap[1]=heap[si];
+        si--;
+        down(1);
     }
+
 
     system("pause");
     return 0;
