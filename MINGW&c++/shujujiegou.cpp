@@ -471,56 +471,237 @@
 //5.修改任意一个元素
 //heap[k]=x;down(k),up(k);
 
+// #include<iostream>
+// #include<algorithm>
+// using namespace std;
+
+// const int N=100010;
+
+// int n,m;
+// int heap[N];
+// int si;
+// //size存当前heap中有多少个元素
+
+// void down(int u)
+// {
+//     int t=u; 
+//     //用t来存爸爸和两儿子这一组中的最小的节点编号
+//     if(u*2<=si&&heap[u*2]<heap[t])
+//         t=u*2;
+//     if(u*2+1<=si &&heap[u*2+1]<heap[t])
+//         t=u*2+1;
+//     if(u!=t)
+//     {
+//         swap(heap[u],heap[t]);
+//         down(t);
+//     }
+// }
+// void up(int u)
+// {
+//     while(u/2&&heap[u/2]>heap[u])
+//     {
+//         swap(heap[u/2],heap[u]);
+//         u=u/2;
+//     }
+// }
+// int main()
+// {
+//     scanf("%d",&n);
+//     for(int i=1;i<=n;i++)
+//         scanf("%d",&heap[i]);
+//     si=n;
+//     for(int i=n/2;i;i--)
+//         down(i);
+//     while(m--)
+//     {
+//         printf("%d",heap[1]);
+//         heap[1]=heap[si];
+//         si--;
+//         down(1);
+//     }
+
+
+//     system("pause");
+//     return 0;
+// }
+
+
+
+//离散化是极特殊的哈希方式
+
+// hash表
+//                     开放寻址法(y总常用)
+//         存储结构{
+// 哈希表{             拉链法
+//         字符串哈希方式
+
+// --------------------------------------
+// 大空间的一堆数据映射到小空间
+
+// 10^5
+// -10^9~10^9
+// h(x)=(0,10^5)
+
+// 1.x mod 10^5
+//这里取模(mod number)的一般是个质数
+// 2.冲突(重复)
+
+// 哈希函数
+
+
+// 拉链法 
+// 开一维数组存哈希数
+    // for(int i=100000;;i++)
+    // {
+    //     bool flag=true;
+    //     for(int j=2;j*j<i;j++)
+    //     {
+    //         if(i%j==0)
+    //         {
+    //             flag=false;
+    //             break;
+    //         }
+    //     }
+    //     if(flag)
+    //     {
+    //         cout<<i<<endl;
+    //         break;
+    //     }
+    //     //找到大于100000的第一个质数
+    //     //用于取模的质数
+            // 得100003
+    // }
+// #include<iostream>
+// #include<cstring>
+// using namespace std;
+
+// const int N=100003;
+// int h[N],e[N],ne[N],idx;
+
+// void insert(int x)
+// {
+//     int k=(x%N+N)%N;
+//     //如-10%3会是-1
+//     //如果x是负数%N负数，+N再%N保证都为正数且小于等于N
+//     e[idx]=x;
+//     ne[idx]=h[k];
+//     h[k]=idx++;  
+// }
+// bool find(int x)
+// {
+//     int k=(x%N+N)%N;
+//     for(int i=h[k];i!=-1;i=ne[i])
+//     {
+//         if(e[i]==x)
+//         {
+//             return true;
+//         }
+//         else 
+//             return false;
+//     }
+// }
+
+
+
+// int main()
+// {
+//     int n;
+//     scanf("%d",&n);
+
+//     memset(h,-1,sizeof h);
+//     while(n--)
+//     {
+//         char op[2];
+//         int x;
+//         scanf("%s%d",op,&x);
+
+//         if(op[0]=='I')
+//             insert(x);
+//         else
+//         {
+//             if(find(x))
+//                 puts("yes");
+//             else
+//                 puts("no");
+//         }
+//     }
+
+
+
+
+//     system("pause");
+//     return 0;
+// }
+
+
+
+//开放寻址法
+//只开一个一维数组(y总喜欢)
+//长度一般开到题目数据范围的2~3倍
+
+
+
+
 #include<iostream>
-#include<algorithm>
+#include<cstring>
 using namespace std;
 
-const int N=100010;
+// 先确定N的两倍200000，再找大于200000的质数
+// 就是200003
+const int N=200003,null=0x3f3f3f3f;
+//null一定不在x范围内，
+//当等于这个数时表示这个位置上没人
 
-int n,m;
-int heap[N];
-int si;
-//size存当前heap中有多少个元素
+int h[N]; 
 
-void down(int u)
+int find(int x)
+//如果存在返回位置，如果不存在返回应该存储的位置
 {
-    int t=u; 
-    //用t来存爸爸和两儿子这一组中的最小的节点编号
-    if(u*2<=si&&heap[u*2]<heap[t])
-        t=u*2;
-    if(u*2+1<=si &&heap[u*2+1]<heap[t])
-        t=u*2+1;
-    if(u!=t)
+    int k=(x%N+N)%N;
+    while(h[k]!=null&&h[k]!=x)
     {
-        swap(heap[u],heap[t]);
-        down(t);
+        k++;
+        if(k==N)
+            k=0;
     }
+    return k; 
 }
-void up(int u)
-{
-    while(u/2&&heap[u/2]>heap[u])
-    {
-        swap(heap[u/2],heap[u]);
-        u=u/2;
-    }
-}
+
 int main()
 {
+    int n;
     scanf("%d",&n);
-    for(int i=1;i<=n;i++)
-        scanf("%d",&heap[i]);
-    si=n;
-    for(int i=n/2;i;i--)
-        down(i);
-    while(m--)
+    memset(h,0x3f,sizeof h);//全等于null
+    while(n--)
     {
-        printf("%d",heap[1]);
-        heap[1]=heap[si];
-        si--;
-        down(1);
+        char op[2];
+        int x;
+        scanf("%s%d",op,&x); 
+        int k=find(x);
+        if(op[0]=='I')
+        {
+            h[k]=x;
+        }
+        else
+        {
+            if(h[k]!=null)
+                puts("yes");
+            else
+                puts("no");
+        }
     }
-
-
-    system("pause");
-    return 0;
 }
+
+// 我比较喜欢拉链法，好理解
+
+
+
+// 字符串哈希方式   
+
+// 字符串前缀哈希法
+str="ABCABCDEYXCACWING";
+h[0]=0;
+h[1]="A"
+h[2]="AB"
+h[3]="ABC"
+h[4]="ABCA"

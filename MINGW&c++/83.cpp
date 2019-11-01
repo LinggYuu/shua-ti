@@ -86,8 +86,6 @@ int main()
         }
         printf(" %d",e[i]);
     }
-
-    
     system("pause");
     return 0;
 }
