@@ -642,66 +642,146 @@
 
 
 
+// #include<iostream>
+// #include<cstring>
+// using namespace std;
+
+// // 先确定N的两倍200000，再找大于200000的质数
+// // 就是200003
+// const int N=200003,null=0x3f3f3f3f;
+// //null一定不在x范围内，
+// //当等于这个数时表示这个位置上没人
+
+// int h[N]; 
+
+// int find(int x)
+// //如果存在返回位置，如果不存在返回应该存储的位置
+// {
+//     int k=(x%N+N)%N;
+//     while(h[k]!=null&&h[k]!=x)
+//     {
+//         k++;
+//         if(k==N)
+//             k=0;
+//     }
+//     return k; 
+// }
+
+// int main()
+// {
+//     int n;
+//     scanf("%d",&n);
+//     memset(h,0x3f,sizeof h);//全等于null
+//     while(n--)
+//     {
+//         char op[2];
+//         int x;
+//         scanf("%s%d",op,&x); 
+//         int k=find(x);
+//         if(op[0]=='I')
+//         {
+//             h[k]=x;
+//         }
+//         else
+//         {
+//             if(h[k]!=null)
+//                 puts("yes");
+//             else
+//                 puts("no");
+//         }
+//     }
+// }
+
+// // 我比较喜欢拉链法，好理解
+
+
+
+// // 字符串哈希   超牛逼  
+//以k进制的角度把一个字符串看成一个数字 
+// //当需要快速判断2个字符串是否相等可用该方法
+
+// // 字符串前缀哈希法
+// str="ABCABCDEYXCACWING";
+// h[0]=0;
+// h[1]="A"的哈希值 
+// h[2]="AB"的哈希值
+// h[3]="ABC"的哈希值
+// h[4]="ABCA"的哈希值
+
+//  A B C D..Z  str[i]
+// 可看成(1 2 3 4..26)p
+        // ( 65 66 67 68..)p
+// ①ABCD...一般不能映射成0，即str[i]是多少无所谓
+// ②该哈希方式假定人品足够好不存在冲突
+//     p=131或13331
+//     Q=2^64
+//     这么取的话基本不会出现冲突，一般都这么取
+
+// "ABCD"=(1xp^3+2xp^2+3xp^1+4xp^0)mod Q
+// h[i]=h[i-1] x p+str[i]
+
+// 高位|-------------|---------|------------|低位
+//     1            L         R
+
+//             最高位          最低位
+// h[R]        p^(R-1)         p^0
+// h[L-1]      p^(L-1)         p^0
+// h[L-1]x p^(R-L+1)与h[R]右端对齐
+
+    // 1234564
+    //   846
+    //    ↓
+    // 1234564
+    //     846
+
+// 最终公式:h[R]-h[L]x P^(R-L+1)
+// 用unsigned long long来代替取模
+
+
+// 字符串哈希题
 #include<iostream>
-#include<cstring>
+
 using namespace std;
 
-// 先确定N的两倍200000，再找大于200000的质数
-// 就是200003
-const int N=200003,null=0x3f3f3f3f;
-//null一定不在x范围内，
-//当等于这个数时表示这个位置上没人
+typedef unsigned long long ull;
+const int N=100010,P=131;
 
-int h[N]; 
-
-int find(int x)
-//如果存在返回位置，如果不存在返回应该存储的位置
+int n,m;
+char str[N];
+ull h[N],p[N];//p数组用来存储p的多少次方
+//h[]数组表示某个前缀的哈希值，
+ull get(int l,int r)
 {
-    int k=(x%N+N)%N;
-    while(h[k]!=null&&h[k]!=x)
-    {
-        k++;
-        if(k==N)
-            k=0;
-    }
-    return k; 
+    return h[r]-h[l-1] *p[r-l+1];
 }
+
+
+
 
 int main()
 {
-    int n;
-    scanf("%d",&n);
-    memset(h,0x3f,sizeof h);//全等于null
-    while(n--)
+    scanf("%d%d%s",&n,&m,str+1);
+    p[0]=1;//p^0=1
+    //p[1]=1*131,p[2]=131*131,....
+    for(int i=1;i<=n;i++)
     {
-        char op[2];
-        int x;
-        scanf("%s%d",op,&x); 
-        int k=find(x);
-        if(op[0]=='I')
-        {
-            h[k]=x;
-        }
-        else
-        {
-            if(h[k]!=null)
-                puts("yes");
-            else
-                puts("no");
-        }
+        p[i]=p[i-1]*P;
+        h[i]=h[i-1]*P+str[i];
     }
+    for(int i=1;i<=n;i++)
+    {
+        cout<<h[i];
+        cout<<endl;
+    }
+    // while(m--)
+    // {
+    //     int l1,l2,r1,r2;
+    //     scanf("%d%d%d%d",&l1,&r1,&l2,&r2);
+    //     if(get(l1,r1)==get(l2,r2))
+    //         puts("yes");
+    //     else
+    //         puts("no");
+    // }
+    system("pause");
+    return 0;
 }
-
-// 我比较喜欢拉链法，好理解
-
-
-
-// 字符串哈希方式   
-
-// 字符串前缀哈希法
-str="ABCABCDEYXCACWING";
-h[0]=0;
-h[1]="A"
-h[2]="AB"
-h[3]="ABC"
-h[4]="ABCA"
