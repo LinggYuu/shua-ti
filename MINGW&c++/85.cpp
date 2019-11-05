@@ -5,7 +5,7 @@ using namespace std;
 const int N=200010;
 
 int num[N];
-int s[N][N];
+int s[N];
 int n;
 
 int main()
@@ -15,18 +15,21 @@ int main()
     {
         cin>>num[i];
     }
-     for(int i=1;i<=n;i++)
-    {
-        cout<<num[i]<<endl;
-    }
+
     for(int i=1;i<=n;i++)
-        for(int j=1;j<=n;j++)
         {
-            s[i][j]=s[i-1][j];
+            s[i]=num[i];
+            if(s[i-1]+num[i]>s[i])
+                s[i]=s[i-1]+num[i];
             
         }
-    cout<<s[1]<<","<<s[2]<<","<<s[3]<<endl;
-
+    int ma=-0x3f3f;
+    for(int i=1;i<=n;i++)
+    {
+        if(ma<s[i])
+            ma=s[i];
+    }
+    cout<<ma;
 
 
 
