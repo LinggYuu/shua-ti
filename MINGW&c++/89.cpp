@@ -27,7 +27,7 @@
 //     cin>>a>>b;
 //     for(int i=a.size()-1;i>=0;i--)
 //     {
-//         A.push_back(a[i]-'0');//逆序存,654321
+//         A.push_back(a[i]-'0');
 //     }
 //     auto C=mul(A,b);
 //     for(int i=C.size()-1;i>=0;i--)
@@ -37,3 +37,44 @@
 //     system("pause");
 //     return 0;
 // }
+
+
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+int s[30],a,b,c,d;
+
+void mul(int s[],int b)
+{
+    for(int i=1;i<=s[0];i++)
+        s[i]*=b;
+    for(int i=1;i<=s[0];i++)
+    {
+        if(s[i]>=10)
+        {
+            s[i+1]+=s[i]/10;
+            s[i]%=10;
+            if(i==s[0]) 
+                s[0]++;
+        }
+    }
+}
+
+
+int main()
+{
+    s[0]=1;
+    s[1]=1;
+    cin>>a>>b;
+    mul(s,a);
+    mul(s,b);
+    for(int i=s[0];i>=1;i--)
+    {
+        cout<<s[i];
+    }
+
+    system("pause");
+    return 0;
+}
