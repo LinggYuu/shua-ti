@@ -96,6 +96,7 @@
 //         {
 //             int s=dfs(j);
 //             res= max(res,s);
+                //当前s也算是一个连通块，所以求max
 //             sum+=s;
 //             //以j为根的子树大小是以
 //             //u为根的子树大小的一部分
@@ -184,3 +185,78 @@ int main()
 // 一个有向无环图一定存在至少一个入度为0的点
 // 所有的边都从前指向后
 // 有向图的拓扑(宽搜应用)
+
+
+#include<iostream>
+#include<algorithm>
+#include<cstring>
+
+using namespace std;
+
+const int N=100010;
+
+int n,m,idx;
+int h[N],e[N],ne[N];
+int q[N],d[N];//d是点的入度
+
+void add(int a,int b)
+{
+    e[idx]=b;
+    ne[idx]=h[a];
+    h[a]=idx++;
+}
+bool topsort()
+{
+    int hh=0,tt=-1;
+    for(int i=1;i<=n;i++)
+    {
+        if(!d[i])
+        {
+            q[++tt]=i;
+        }
+        while(hh<=tt)
+        {
+            int t=q[hh++];
+            for(int i=h[t];i!=-1;i=ne[i])
+            {
+                int j=e[i];
+                d[j]--;
+                if(d[j]==0)
+                    q[++tt]=j;
+            }
+        }
+    }
+    return tt==n-1;//说明所有点都进过队列
+    // 说明是一个有向无环图
+    //而队列里面的次序恰好是拓扑序
+}
+int main()
+{
+    cin>>n>>m;
+    memset(h,-1,sizeof h);
+    for(int i=0;i<m;i++)
+    {
+        int a,b;
+        cin>>a>>b;
+        add(a,b);
+        d[b]++;
+    }    
+    if(topsort())
+    {
+        for(int i=0;i<n;i++)
+            cout<<q[i];
+        puts("");
+    }
+    else
+    {
+        puts("-1");
+    }
+    system("pause");
+    return 0;
+}
+//答案是不唯一的，一个有向无环图的拓扑序是不唯一的
+// 1->2
+// |
+// v
+// 3
+// 1-2-3 ,1-3-2
