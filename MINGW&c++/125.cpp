@@ -1,4 +1,3 @@
-
 #include "stdio.h"
 #include "string.h"
 #include "conio.h"
@@ -47,7 +46,7 @@ int wgetchar; /*whether getchar()*/
 
 FILE *fp_mfd,*fp_ufd,*fp_file_p,*fp_file;
 
-int main()
+int main(void)
 {
 	int i,j,choice1;
 	char choice[50];  /*choice operation:dir,create,delete,open,delete,modify,read,write*/
@@ -115,7 +114,7 @@ int main()
 				case 8:choiceend=1;WriteF();if (!wgetchar) getchar();break;
 				case 9:printf("\nYou have exited this system.");
 		   					QuitF();exit(0);break;
-				case 10:choiceend=1;/*clrscr();*/break;
+				case 10:choiceend=1;/*clrscr()*/;break;
 				case 11:CdF();choiceend=1;break;
 				case 20:help();choiceend=1;break;
 				default:choiceend=0;
@@ -123,7 +122,6 @@ int main()
 	  }
 	}
 	else printf("\nAccess denied.");
-	return 0;
 }
 
 void help(void)
