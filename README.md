@@ -1,1 +1,2 @@
-yue zuo yue fa xian ziji shi caibi.
+我是蒟蒻，接受自己是蒟蒻是一件很勇敢的事。
+我是个勇敢的人。XD
